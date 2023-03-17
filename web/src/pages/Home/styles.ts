@@ -65,36 +65,28 @@ export const ContentSearch = styled.div`
  align-items: center;
  gap: 23px;
 
- input {
-    width: 203px;
-    height: 60px;
+ select {
+    width: 72px;
+    height: 72px;
     font-size: 16px;
     font-weight: bold;
     background-color: #E44449;
-    padding: 21px 16px;
+    padding: 10px 10px;
     border-radius: 15px;
-    border: 1px solid #E44449;
+    border: 1px solid #fff;
     color: #fff;
+    text-align: center;
 
     outline: none;
 
-    &::placeholder {
-      color: #f2f2f2;
-      text-align: center;
-    }
   }
-
-  button:first-child {
-    background-color: transparent;
-    border: 1px solid #ffffff;
-    color: white;
-
-    img {
-        width: 8px;
-        height: 4px;
-        margin-left: 8px;;
-    }
+  
+  select:nth-child(2) {
+    width: 200px;
+    border: none;
+    text-align: center;
   }
+  
 
   button {
     width: 60px;

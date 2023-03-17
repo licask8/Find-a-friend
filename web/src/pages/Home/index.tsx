@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
 import logo from '../../assets/images/logo.png'
 import dogs from '../../assets/images/dogs.png'
 import search from '../../assets/icons/search.svg'
-import arrowBottom from "../../assets/icons/chevron-bottom.svg"
-
+import { useEstados } from '@/hooks/useEstados'
+import { useCidades } from '@/hooks/useCidades'
 import {
   Container,
   Logo, 
@@ -14,52 +13,31 @@ import {
   ContentSearch, 
   DogsImage 
 } from './styles'
-import { api } from '@/lib/axios'
-
-interface IEstados  {
-  id: number
-  sigla: string
-  nome: string
-}
+import { useState } from 'react'
 
 
 export function Home() {
-  const [loadingStates, setLoadingStates] = useState(false);
-  const [estados, setEstados] = useState<IEstados[]>([]);
+  const { estados } = useEstados();
+  const [selectedEstado, setSelectedEstado] = useState('')
+  const { cidades, loading: loadingCidades } = useCidades({uf: selectedEstado});
 
+  
 
   function handleSearchPets() {
     // TO DO
   }
 
-  async function handleChangeState() {
-    try {
-      setLoadingStates(true)
-
-      const response = await api.get("http://localhost:3333/location/states")
-      setEstados(response.data.states);
-      
-      console.log(' ----akiee', response.data.states[2])
-    } catch (error) {
-      setLoadingStates(false)
-      console.log(error)
-      throw error
-    }
-    finally {
-      setLoadingStates(false)
-    }
+  async function handleChangeState(event:any) {
+    setSelectedEstado(event.target.value)
   }
 
   function handleChangeCity() {
     // TO DO
+    
   }
 
-  useEffect(() => {
-    handleChangeState()
-  }, [])
-
   return (
-    <>
+  <>
     <Container>
 
       <ContainerInfo>
@@ -68,7 +46,7 @@ export function Home() {
         
         </Logo>
 
-        <TextInfo> Leve
+        <TextInfo> Leve <br/>
           a felicidade 
           para o seu lar</TextInfo>
 
@@ -85,23 +63,28 @@ export function Home() {
         <ContentSearch>
           Busque um amigo:
 
-          <select>
-           {estados.map((estado) => (
-            <option >{estado.nome}</option>
-           ))}
-            
+          <select value={selectedEstado} onChange={handleChangeState}>
+            {estados.map((estado) => (
+              <option key={estado.id} value={estado.sigla} >{estado.sigla}</option>
+            ))}
           </select>
-        
-          <input type="text" placeholder='Recife' />
 
-          <button>
+          {loadingCidades ? <p>Carregando...</p> : (
+             <select>
+             {cidades.map((cidade) => (
+               <option key={cidade.code} value={cidade.name} >{cidade.name}</option>
+             ))}
+           </select>
+          )}
+
+          <button onClick={handleChangeCity}>
             <img src={search} alt="ícone de lupa" />
           </button>
 
         </ContentSearch>
 
       </ContainerSearch>
-  </Container>
-    </>
+    </Container>
+  </>
   )
 }

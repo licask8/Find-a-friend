@@ -26,13 +26,13 @@ export const HeaderInput = styled.div`
   display: flex;
   gap: 12px;
 
-  input {
+  select {
     width: 203px;
     height: 60px;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    padding: 21px 16px;
+    padding: 15px 16px;
     border-radius: 15px;
     background: transparent;
     border: 1px solid #f15156;

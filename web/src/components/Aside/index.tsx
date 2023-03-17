@@ -92,7 +92,11 @@ export function Aside() {
         <div>
           <img src={logo} alt="" />
           <HeaderInput>
-            <input type="text" placeholder="Insira uma cidade" />
+            {/* <input type="text" placeholder="Insira uma cidade" /> */}
+            <select>
+              <option >Cidade</option>
+            </select>
+
             <button>
               <img src={search} alt="ícone de lupa" />
             </button>
